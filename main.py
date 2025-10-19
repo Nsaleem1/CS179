@@ -1,5 +1,6 @@
 import math
 import random
+import matplotlib.pyplot as plt
 
 def euclideanDistance(loc1, loc2):
     return math.sqrt((loc1[0] - loc2[0])**2 + (loc1[1] - loc2[1])**2)
@@ -54,5 +55,6 @@ for run in range(100):
         print(f"\t\t{bestSoFar}\n")
 
 
-    
-
+# should allow for second input- interruption 
+# must output image and file
+# 256cashew file does not return a distance 
