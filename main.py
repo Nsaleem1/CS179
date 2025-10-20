@@ -1,6 +1,7 @@
 import math
 import random
 import matplotlib.pyplot as plt
+import threading
 
 def euclideanDistance(loc1, loc2):
     return math.sqrt((loc1[0] - loc2[0])**2 + (loc1[1] - loc2[1])**2)
@@ -32,9 +33,18 @@ print(f"There are {locationNum} nodes, computing route ...")
 print("\tShortest Route Discovered So Far\n")
 bestSoFar = 6000
 
-#random order run 
-for run in range(100):
+#thread to detect 'enter' click
+interrupt = False
+def enterClick():
+    input()
+    global interrupt
+    interrupt = True
+t1 = threading.Thread(target=enterClick)
+t1.start()
 
+#random order run 
+#for run in range(100):
+while not interrupt:
     #creating an array with a random order of numbers 
     order = list(range(locationNum))
     random.shuffle(order)
