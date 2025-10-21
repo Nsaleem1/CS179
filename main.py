@@ -66,7 +66,8 @@ while not interrupt:
 
     #updating BSF 
     if totalDistance < bestSoFar:
-        bestSoFar = round(totalDistance,1)
+        # bestSoFar = round(totalDistance,1)
+        bestSoFar = int(totalDistance)
         print(f"\t\t{bestSoFar}\n")
         bsfRoute = order[:]
     
@@ -78,7 +79,7 @@ route_x = [locations[i][0] for i in bsfRoute]
 route_y = [locations[i][1] for i in bsfRoute]
 
 plt.figure(figsize=(10, 6))
-plt.plot(route_x, route_y, 'b-', marker='o', markersize=2)
+plt.plot(route_x, route_y, 'b-', marker='o', markersize=4)
 plt.title(f"Best Route Found (Distance = {bestSoFar} units)")
 plt.xlabel("X")
 plt.ylabel("Y")
