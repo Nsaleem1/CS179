@@ -3,6 +3,7 @@ import random
 import matplotlib.pyplot as plt
 import os
 import threading
+import numpy as np
 
 def euclideanDistance(loc1, loc2):
     return math.sqrt((loc1[0] - loc2[0])**2 + (loc1[1] - loc2[1])**2)
@@ -66,7 +67,8 @@ while not interrupt:
 
     #updating BSF 
     if totalDistance < bestSoFar:
-        bestSoFar = round(totalDistance,1)
+        # bestSoFar = round(totalDistance,1)
+        bestSoFar = int(totalDistance)
         print(f"\t\t{bestSoFar}\n")
         bsfRoute = order[:]
     
@@ -78,7 +80,7 @@ route_x = [locations[i][0] for i in bsfRoute]
 route_y = [locations[i][1] for i in bsfRoute]
 
 plt.figure(figsize=(10, 6))
-plt.plot(route_x, route_y, 'b-', marker='o', markersize=2)
+plt.plot(route_x, route_y, 'b-', marker='o', markersize=4)
 plt.title(f"Best Route Found (Distance = {bestSoFar} units)")
 plt.xlabel("X")
 plt.ylabel("Y")
@@ -103,15 +105,12 @@ with open(file_path, "w") as f:
     for i in bsfRoute:
         f.write(f"{i + 1}\n")
 
-print(f"Route image written to desk as {fileName}_SOLUTION_{bestSoFar}.jpeg\n")
-print(f"Route file written to desk as {fileName}_SOLUTION_{bestSoFar}.txt\n")
+print(f"Route image written to desktop as {fileName}_SOLUTION_{bestSoFar}.jpeg\n")
+print(f"Route file written to desktop as {fileName}_SOLUTION_{bestSoFar}.txt\n")
 
 # should allow for second input- interruption (pretty much works now)
 # must add error handling (file DNE, file in wrong format, ) error message and abort 
 # fix the 6000 meter limit error: must give warning but still create all outputs 
-# double check the logic behind the location nums because why does the route include 0 twice? or even at all?
-# ran it, and the image shows that the algorithm did not start and end at the same node??
 # should only visit each node exactly once 
 # should get an answer in 1/4 of a second
-# must return the distance as nearest integer 
 # 10-pixel buffer between any point and an edge
