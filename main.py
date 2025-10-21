@@ -109,7 +109,6 @@ print(f"Route file written to desk as {fileName}_SOLUTION_{bestSoFar}.txt\n")
 # should allow for second input- interruption (pretty much works now)
 # must add error handling (file DNE, file in wrong format, ) error message and abort 
 # fix the 6000 meter limit error: must give warning but still create all outputs 
-# double check the logic behind the location nums because why does the route include 0 twice? or even at all?
 # ran it, and the image shows that the algorithm did not start and end at the same node??
 # should only visit each node exactly once 
 # should get an answer in 1/4 of a second
