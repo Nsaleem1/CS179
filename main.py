@@ -103,9 +103,15 @@ with open(file_path, "w") as f:
     for i in bsfRoute:
         f.write(f"{i + 1}\n")
 
-print(f"{fileName}_SOLUTION_{bestSoFar}.jpeg saved to desktop\n")
-print(f"{fileName}_SOLUTION_{bestSoFar}.txt saved to desktop\n")
+print(f"Route image written to desk as {fileName}_SOLUTION_{bestSoFar}.jpeg\n")
+print(f"Route file written to desk as {fileName}_SOLUTION_{bestSoFar}.txt\n")
 
-# should allow for second input- interruption 
-# must add error handling (file DNE, file in wrong format, )
+# should allow for second input- interruption (pretty much works now)
+# must add error handling (file DNE, file in wrong format, ) error message and abort 
 # fix the 6000 meter limit error: must give warning but still create all outputs 
+# double check the logic behind the location nums because why does the route include 0 twice? or even at all?
+# ran it, and the image shows that the algorithm did not start and end at the same node??
+# should only visit each node exactly once 
+# should get an answer in 1/4 of a second
+# must return the distance as nearest integer 
+# 10-pixel buffer between any point and an edge
