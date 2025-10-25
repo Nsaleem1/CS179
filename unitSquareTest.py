@@ -19,5 +19,7 @@ with open("unitSquare.txt", "w") as file:
     for x, y in locations:
         file.write(f"{x}\t{y}\n")
 
+print(f"Success, unitSquare.txt now contains {nodeNum} coordinates on a square perimeter!")
+
 
 
