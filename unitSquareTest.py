@@ -7,7 +7,7 @@ locations = []
 for i in range(nodeNum):
     x = random.uniform(-1,1)
     y = random.uniform(-1,1)
-    while not ((x.is_integer() or y.is_integer()) and (x != 0 or y != 0)):
+    while not ((float(x).is_integer() or float(y).is_integer()) and (x != 0 or y != 0)):
         j = random.choice([True, False])
         if(j):
             x = random.choice([-1,1])
