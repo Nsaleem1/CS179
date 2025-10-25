@@ -43,46 +43,80 @@ def enterClick():
 t1 = threading.Thread(target=enterClick)
 t1.start()
 
-#random order run 
+# implement nearest neighbor
+# initialize variables and arrays
+unvisited = []
+visited = []
+for i in range(1, len(locations)):
+    unvisited.append(i)
+visited.append(0)
+
+totalDistance = 0
+current = 0
+next = 0
+
+# keep iterating until all nodes have been visited
+while (len(unvisited) > 0):
+    smallestDist = float('inf')
+
+    # find nearest neighbor 
+    for i in (unvisited):
+        if (distanceMatrix[current][i] < smallestDist):
+            smallestDist = distanceMatrix[current][i]
+            next = i
+
+    # update distance, arrays, and current node
+    totalDistance += smallestDist
+    unvisited.remove(next)
+    visited.append(next) 
+    current = next
+
+# back to the first location 
+totalDistance += distanceMatrix[current][visited[0]]  
+visited.append(visited[0])  
+
+# update bsf
+if (totalDistance < bestSoFar):
+    bestSoFar = int(totalDistance)
+    bsfRoute = visited[:]
+    print(f"\t\t{bestSoFar}\n")
+
+# after finding NN route, keep trying to optimize
+# by uncrossing intersecting edges
 while not interrupt:
 
-   #creating an array with a random order of numbers 
-    unvisited = []
-    visited = []
-    for i in range(1, len(locations)):
-        unvisited.append(i)
-    visited.append(0)
-    #visited.insert(0,0)
+    # check all edges to see if swapping nodes lessens distance
+    for i in range(1, len(bsfRoute)-2):
+        for j in range(i+2, len(bsfRoute)-1):
 
+            # skip edges that share a point
+            if j - i == 1:
+                continue  
+            
+            # create edges 
+            a, b = bsfRoute[i-1], bsfRoute[i]
+            c, d = bsfRoute[j-1], bsfRoute[j]
+            
+            # compute distances 
+            currDist = distanceMatrix[a][b] + distanceMatrix[c][d]
+            newDist = distanceMatrix[a][c] + distanceMatrix[b][d]
 
-    #computing total distance with that order
+            # compare distances
+            if (newDist < currDist):
+                bsfRoute[i:j] = reversed(bsfRoute[i:j])
+    
+    # recompute final distance after swaps 
     totalDistance = 0
-    current = 0
-    next = 0
-
-    while (len(unvisited) > 0):
-        smallestDist = float('inf')
-        for i in (unvisited):
-            if (distanceMatrix[current][i] < smallestDist):
-                smallestDist = distanceMatrix[current][i]
-                next = i
-        totalDistance += smallestDist
-        unvisited.remove(next)
-        visited.append(next) 
-        current = next
-
-    # back to the first location 
-    totalDistance += distanceMatrix[current][visited[0]]  
-    visited.append(visited[0])  
-
+    for k in range(len(bsfRoute) - 1):
+        totalDistance += distanceMatrix[bsfRoute[k]][bsfRoute[k + 1]]           
+    
+    # update bsf
     if (totalDistance < bestSoFar):
         bestSoFar = int(totalDistance)
-        bsfRoute = visited[:]
         print(f"\t\t{bestSoFar}\n")
 
 if bestSoFar >= 6000: 
     print("Warning! The route found has reached or exceeded the 6000 meter constraint")
-    #raise Exception("No route found below 6000 meter constraint")
 
 # making the plot after best route has been found
 route_x = [locations[i][0] for i in bsfRoute]
@@ -101,7 +135,6 @@ plt.scatter(locations[landing_site][0], locations[landing_site][1],
 
 plt.grid(True)
 plt.tight_layout()
-#plt.savefig(f"{fileName}_SOLUTION_{bestSoFar}.jpeg") 
 
 # save path to the desktop
 desktop = os.path.join(os.path.expanduser("~"), "Desktop")
@@ -117,9 +150,5 @@ with open(file_path, "w") as f:
 print(f"Route image written to desktop as {fileName}_SOLUTION_{bestSoFar}.jpeg\n")
 print(f"Route file written to desktop as {fileName}_SOLUTION_{bestSoFar}.txt\n")
 
-# should allow for second input- interruption (pretty much works now)
 # must add error handling (file DNE, file in wrong format, ) error message and abort 
-# fix the 6000 meter limit error: must give warning but still create all outputs 
-# should only visit each node exactly once 
 # should get an answer in 1/4 of a second
-# 10-pixel buffer between any point and an edge
