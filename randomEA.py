@@ -55,7 +55,6 @@ while not interrupt:
     order.append(0)
     order.insert(0,0)
 
-
     #computing total distance with that order
     totalDistance = 0
     for i in range(len(locations) - 1):
@@ -67,13 +66,12 @@ while not interrupt:
 
     #updating BSF 
     if totalDistance < bestSoFar:
-        # bestSoFar = round(totalDistance,1)
         bestSoFar = int(totalDistance)
         print(f"\t\t{bestSoFar}\n")
         bsfRoute = order[:]
     
 if bestSoFar >= 6000: 
-    raise Exception("No route found below 6000 meter constraint")
+    print("Warning! The route found has reached or exceeded the 6,000 meter constraint")
 
 # making the plot after best route has been found
 route_x = [locations[i][0] for i in bsfRoute]
@@ -92,7 +90,6 @@ plt.scatter(locations[landing_site][0], locations[landing_site][1],
 
 plt.grid(True)
 plt.tight_layout()
-#plt.savefig(f"{fileName}_SOLUTION_{bestSoFar}.jpeg") 
 
 # save path to the desktop
 desktop = os.path.join(os.path.expanduser("~"), "Desktop")
@@ -108,9 +105,5 @@ with open(file_path, "w") as f:
 print(f"Route image written to desktop as {fileName}_SOLUTION_{bestSoFar}.jpeg\n")
 print(f"Route file written to desktop as {fileName}_SOLUTION_{bestSoFar}.txt\n")
 
-# should allow for second input- interruption (pretty much works now)
 # must add error handling (file DNE, file in wrong format, ) error message and abort 
-# fix the 6000 meter limit error: must give warning but still create all outputs 
-# should only visit each node exactly once 
 # should get an answer in 1/4 of a second
-# 10-pixel buffer between any point and an edge
