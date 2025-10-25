@@ -3,6 +3,7 @@ import random
 import matplotlib.pyplot as plt
 import os
 import threading
+import time
 
 def euclideanDistance(loc1, loc2):
     return math.sqrt((loc1[0] - loc2[0])**2 + (loc1[1] - loc2[1])**2)
@@ -21,7 +22,10 @@ with open(fileName, "r") as text:
         #ensuring nodes do not exceed limit
         if len(locations) > 256:
             raise Exception("Max amount of Nodes in file reached")
-        
+
+# start timer
+start_time = time.perf_counter()
+
 #creating matrix
 distanceMatrix = [[0] * len(locations) for x in range(len(locations))]
 
@@ -29,6 +33,9 @@ distanceMatrix = [[0] * len(locations) for x in range(len(locations))]
 for i in range(len(locations)):
     for j in range(len(locations)):
         distanceMatrix[i][j] = euclideanDistance(locations[i], locations[j])
+
+
+ 
 
 print(f"There are {len(locations)} nodes, computing route ...")
 print("\tShortest Route Discovered So Far\n")
@@ -80,6 +87,12 @@ if (totalDistance < bestSoFar):
     bestSoFar = int(totalDistance)
     bsfRoute = visited[:]
     print(f"\t\t{bestSoFar}\n")
+
+# stop timer
+end_time = time.perf_counter()    # high-resolution timer end
+elapsed = end_time - start_time
+
+print(f"Nearest Neighbor route generated in {elapsed:.6f} seconds.")
 
 # after finding NN route, keep trying to optimize
 # by uncrossing intersecting edges
