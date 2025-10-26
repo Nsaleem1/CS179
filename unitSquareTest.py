@@ -7,7 +7,7 @@ locations = []
 for i in range(nodeNum):
     x = random.uniform(-1,1)
     y = random.uniform(-1,1)
-    while not ((x.is_integer() or y.is_integer()) and (x != 0 or y != 0)):
+    while not ((float(x).is_integer() or float(y).is_integer()) and (x != 0 or y != 0)):
         j = random.choice([True, False])
         if(j):
             x = random.choice([-1,1])
@@ -18,6 +18,8 @@ for i in range(nodeNum):
 with open("unitSquare.txt", "w") as file:
     for x, y in locations:
         file.write(f"{x}\t{y}\n")
+
+print(f"Success, unitSquare.txt now contains {nodeNum} coordinates on a square perimeter!")
 
 
 
