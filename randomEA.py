@@ -22,7 +22,7 @@ with open(fileName, "r") as text:
         #ensuring nodes do not exceed limit
         if len(locations) > 256:
             raise Exception("Max amount of Nodes in file reached")
-        
+
 #creating matrix
 distanceMatrix = [[0] * len(locations) for x in range(len(locations))]
 

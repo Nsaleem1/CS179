@@ -65,7 +65,7 @@ while not interrupt:
         bestSoFar = int(totalDistance)
         print(f"\t\t{bestSoFar}\n")
         bsfRoute = order[:]
-    
+
 if bestSoFar >= 6000: 
     print("Warning! The route found has reached or exceeded the 6000 meter constraint")
 

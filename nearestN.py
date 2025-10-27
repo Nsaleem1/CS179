@@ -34,9 +34,6 @@ for i in range(len(locations)):
     for j in range(len(locations)):
         distanceMatrix[i][j] = euclideanDistance(locations[i], locations[j])
 
-
- 
-
 print(f"There are {len(locations)} nodes, computing route ...")
 print("\tShortest Route Discovered So Far\n")
 bestSoFar = 6000
