@@ -145,6 +145,7 @@ plt.scatter(locations[landing_site][0], locations[landing_site][1],
 
 plt.grid(True)
 plt.tight_layout()
+plt.axis('equal')
 
 # save path to the desktop
 desktop = os.path.join(os.path.expanduser("~"), "Desktop")
